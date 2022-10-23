@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/yurii.khmelenko/Study/SQ/Lab2/StudentManagementPlatform/src/StudentManagementSystem.Application/Services/ApplicantsService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using StudentManagementSystem.Domain.Interfaces.Repositories;
+using StudentManagementSystem.Domain.Interfaces.Services;
+using StudentManagementSystem.Domain.Models;
+
+namespace StudentManagementSystem.Application.Services;
+
+public class ApplicantsService: IApplicantsService
+{
+    private readonly IApplicantRepository _applicantRepository;
+    private readonly IApplicationRepository _applicationRepository;
+
+    public ApplicantsService(IApplicationRepository applicationRepository, IApplicantRepository applicantRepository)
+    {
+        _applicationRepository = applicationRepository;
+        _applicantRepository = applicantRepository;
+    }
+
+    public Applicant GetApplicantInfo(int applicantId)
+    {
+        var applicantEntity = _applicantRepository.Find(applicantId);
+
+        if (applicantEntity is null)
+            throw new ArgumentException(&quot;Applicant not found&quot;);
+        
+        if (!applicantEntity.Activated)
+            throw new ArgumentException(&quot;Applicant is deactivated&quot;);
+
+        return new Applicant
+        {
+            Name = applicantEntity.Name,
+            Email = applicantEntity.Email,
+            DateOfBirth = applicantEntity.DateOfBirth,
+            AverageScore = applicantEntity.AverageScore,
+            Country = applicantEntity.Country
+        };
+    }
+
+    public Domain.Models.Application CreateApplication(int applicantId, List&lt;object&gt; requiredDocuments)
+    {
+        throw new NotImplementedException();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,5,12,117,1],[13,5,13,6,1],[14,9,14,56,1],[15,9,15,52,1],[16,5,16,6,1],[19,5,19,6,1],[20,9,20,70,1],[22,9,22,37,1],[23,13,23,64,1],[25,9,25,40,1],[26,13,26,69,1],[28,9,35,11,1],[36,5,36,6,1],[39,5,39,6,0],[40,9,40,45,0]]);
+    </script>
+  </body>
+</html>

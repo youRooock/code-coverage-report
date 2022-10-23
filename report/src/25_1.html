@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/yurii.khmelenko/Study/SQ/Lab2/StudentManagementPlatform/src/StudentManagementSystem.Domain/Entities/EducationalInstitutionEntity.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace StudentManagementSystem.Domain.Entities;
+
+public record EducationalInstitutionEntity
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = default!;
+    public DateTime Created { get; set; }
+    public bool Verified { get; set; }
+    public bool Removed { get; set; }
+    public string LicenseNumber { get; set; } = default!;
+    public List&lt;CourseEntity&gt; Courses { get; set; } = new();
+};
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[5,21,5,25,1],[5,26,5,30,1],[6,26,6,30,1],[6,31,6,35,1],[6,40,6,48,1],[7,31,7,35,0],[7,36,7,40,1],[8,28,8,32,1],[8,33,8,37,1],[9,27,9,31,1],[9,32,9,36,1],[10,35,10,39,1],[10,40,10,44,1],[10,49,10,57,1],[11,41,11,45,1],[11,46,11,50,1],[11,55,11,60,1]]);
+    </script>
+  </body>
+</html>

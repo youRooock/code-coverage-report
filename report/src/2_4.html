@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/yurii.khmelenko/Study/SQ/Lab2/StudentManagementPlatform/src/StudentManagementSystem.Application/Services/EducationalInstitutionService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using StudentManagementSystem.Domain.Interfaces;
+using StudentManagementSystem.Domain.Interfaces.Repositories;
+using StudentManagementSystem.Domain.Interfaces.Services;
+using StudentManagementSystem.Domain.Models;
+
+namespace StudentManagementSystem.Application.Services;
+
+public class EducationalInstitutionService : IEducationalInstitutionService
+{
+    private readonly IEducationalInstitutionRepository _institutionRepository;
+
+    public EducationalInstitutionService(IEducationalInstitutionRepository institutionRepository)
+    {
+        _institutionRepository = institutionRepository;
+    }
+
+    public List&lt;Course&gt; ListAvailableCourses(int institutionId)
+    {
+        var courseEntities= _institutionRepository.FindAllCourses(institutionId);
+
+        if (!courseEntities.Any())
+        {
+            throw new ArgumentException(&quot;No courses available&quot;);
+        }
+        
+        return courseEntities.Select(e =&gt; new Course
+        {
+            Name = e.Name,
+            StartTime = e.StartTime,
+            StudentsCapacity = e.StudentsCapacity,
+            MinScoreRequired = e.MinScoreRequired
+        }).ToList();
+    }
+
+    public void CreateCourse(int institutionId, Course course)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Course FindCourse(int institutionId, int courseId)
+    {
+        var courseEntity = _institutionRepository.FindCourse(institutionId, courseId);
+
+        if (courseEntity is null)
+            throw new ArgumentException(&quot;Course not found&quot;);
+
+        return new Course
+        {
+            Name = courseEntity.Name,
+            StartTime = courseEntity.StartTime,
+            StudentsCapacity = courseEntity.StudentsCapacity,
+            MinScoreRequired = courseEntity.MinScoreRequired
+        };
+    }
+
+    public bool AcceptForCourse(int applicantId, int institutionId, int courseId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RemoveFromCourse(int applicantId, int institutionId, int courseId)
+    {
+        throw new NotImplementedException();
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[12,5,12,98,1],[13,5,13,6,1],[14,9,14,56,1],[15,5,15,6,1],[18,5,18,6,1],[19,9,19,82,1],[21,9,21,35,1],[22,9,22,10,1],[23,13,23,65,1],[26,9,26,43,1],[26,43,32,10,1],[32,10,32,21,1],[33,5,33,6,1],[36,5,36,6,0],[37,9,37,45,0],[41,5,41,6,1],[42,9,42,87,1],[44,9,44,34,1],[45,13,45,61,1],[47,9,53,11,1],[54,5,54,6,1],[57,5,57,6,0],[58,9,58,45,0],[62,5,62,6,0],[63,9,63,45,0]]);
+    </script>
+  </body>
+</html>

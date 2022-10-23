@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/yurii.khmelenko/Study/SQ/Lab2/StudentManagementPlatform/src/StudentManagementSystem.Api/Program.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Microsoft.AspNetCore.Mvc;
+using StudentManagementSystem.Api.Dtos;
+using StudentManagementSystem.Application.Services;
+using StudentManagementSystem.Domain.Interfaces.Services;
+using StudentManagementSystem.Domain.Models;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddScoped&lt;IApplicantsService, ApplicantsService&gt;();
+builder.Services.AddScoped&lt;IMinistryService, MinistryService&gt;();
+builder.Services.AddScoped&lt;IEducationalInstitutionService, EducationalInstitutionService&gt;();
+
+var app = builder.Build();
+
+app.Map(&quot;/applicants/{id}&quot;, (int id, [FromServices] IApplicantsService service) =&gt; service.GetApplicantInfo(id));
+app.MapPost(&quot;/applicants/create-application&quot;, (CreateApplicationDto dto, [FromServices] IApplicantsService service) =&gt; service.CreateApplication(dto.ApplicantId, dto.Documents));
+
+app.Map(&quot;/educational-institutions/{id}&quot;, (int id, [FromServices] IEducationalInstitutionService service) =&gt; service.ListAvailableCourses(id));
+app.MapPost(&quot;/educational-institutions/{id}&quot;, (int id, Course course, [FromServices] IEducationalInstitutionService service) =&gt; service.CreateCourse(id, course));
+app.MapPut(&quot;/educational-institutions&quot;, (AcceptForCourseDto dto, [FromServices] IEducationalInstitutionService service) =&gt; service.AcceptForCourse(dto.ApplicantId, dto.InstitutionId, dto.CourseId));
+
+app.Map(&quot;/ministry&quot;, (IMinistryService service) =&gt; service.GetAllInstitutions());
+app.Map(&quot;/ministry/{license}&quot;, (string license, [FromServices] IMinistryService service) =&gt; service.FindInstitution(license));
+
+app.Run();
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[7,1,7,50,0],[9,1,9,35,0],[10,1,10,69,0],[11,1,11,65,0],[12,1,12,93,0],[14,1,14,27,0],[16,1,16,84,0],[16,84,16,112,0],[16,112,16,114,0],[17,1,17,120,0],[17,120,17,177,0],[17,177,17,179,0],[19,1,19,110,0],[19,110,19,142,0],[19,142,19,144,0],[20,1,20,129,0],[20,129,20,161,0],[20,161,20,163,0],[21,1,21,124,0],[21,124,21,197,0],[21,197,21,199,0],[23,1,23,52,0],[23,52,23,80,0],[23,80,23,82,0],[24,1,24,93,0],[24,93,24,125,0],[24,125,24,127,0],[26,1,26,11,0]]);
+    </script>
+  </body>
+</html>
